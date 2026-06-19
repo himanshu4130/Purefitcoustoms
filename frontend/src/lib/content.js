@@ -22,52 +22,80 @@ export const NAV_LINKS = [
   { label: "Contact", to: "/contact", testid: "nav-contact" },
 ];
 
+// AI-generated PureFit-style luxury PET water bottle product imagery
+// (located in /app/frontend/public/bottles/, served as /bottles/*.png)
+export const BOTTLES = {
+  wedding: "/bottles/wedding.png",
+  catering: "/bottles/catering.png",
+  corporate: "/bottles/corporate.png",
+  religious: "/bottles/religious.png",
+  restaurant: "/bottles/restaurant.png",
+  political: "/bottles/political.png",
+  funeral: "/bottles/funeral.png",
+  communion: "/bottles/communion.png",
+  birthday: "/bottles/birthday.png",
+  housewarming: "/bottles/housewarming.png",
+};
+
+export const HERO_ROTATION = [
+  { title: "Wedding Edition", subtitle: "Bride & Groom Bottle", image: BOTTLES.wedding },
+  { title: "Catering Edition", subtitle: "Banquet Branded Bottle", image: BOTTLES.catering },
+  { title: "Corporate Edition", subtitle: "Boardroom Branded Bottle", image: BOTTLES.corporate },
+  { title: "Funeral Service", subtitle: "Memorial Branded Bottle", image: BOTTLES.funeral },
+];
+
 export const SERVICES = [
   {
     id: "wedding",
     title: "Wedding Branding",
     description: "Bride & Groom edition bottles, gold-foil labels and bespoke monograms for unforgettable celebrations.",
     icon: Heart,
+    image: BOTTLES.wedding,
   },
   {
     id: "catering",
     title: "Catering Branding",
     description: "Elevate catering services with branded bottles that turn every table into a signature experience.",
     icon: Utensils,
+    image: BOTTLES.catering,
   },
   {
     id: "corporate",
     title: "Corporate Branding",
     description: "Boardroom-grade custom bottles with your logo, message and brand identity, crafted to impress.",
     icon: Briefcase,
+    image: BOTTLES.corporate,
   },
   {
     id: "religious",
     title: "Religious Events",
     description: "Holy Communions, baptisms, temple events — delicate, respectful designs with timeless typography.",
     icon: Cross,
+    image: BOTTLES.communion,
   },
   {
     id: "restaurant",
     title: "Restaurant Branding",
     description: "Bring your restaurant identity to the table with private-label bottles your guests will remember.",
     icon: Wine,
+    image: BOTTLES.restaurant,
   },
   {
     id: "political",
     title: "Political & Social",
     description: "Campaigns, rallies, social events — bulk-ready customisation with crisp prints and fast turnaround.",
     icon: Megaphone,
+    image: BOTTLES.political,
   },
 ];
 
 export const SHOWCASE = [
-  { title: "Bride & Groom", subtitle: "Wedding Edition", image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80", testid: "showcase-bride-groom" },
-  { title: "Corporate Logo", subtitle: "Boardroom Branding", image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80", testid: "showcase-corporate" },
-  { title: "Restaurant", subtitle: "Private Label", image: "https://images.pexels.com/photos/32560854/pexels-photo-32560854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", testid: "showcase-restaurant" },
-  { title: "Holy Communion", subtitle: "Sacred Edition", image: "https://images.unsplash.com/photo-1606028153746-ad9b2c0a9c7e?w=1200&q=80", testid: "showcase-communion" },
-  { title: "Birthday", subtitle: "Celebration Series", image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200&q=80", testid: "showcase-birthday" },
-  { title: "Housewarming", subtitle: "Home Edition", image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80", testid: "showcase-housewarming" },
+  { title: "Bride & Groom", subtitle: "Wedding Edition", image: BOTTLES.wedding, testid: "showcase-bride-groom" },
+  { title: "Corporate Logo", subtitle: "Boardroom Branding", image: BOTTLES.corporate, testid: "showcase-corporate" },
+  { title: "Restaurant", subtitle: "Private Label", image: BOTTLES.restaurant, testid: "showcase-restaurant" },
+  { title: "Holy Communion", subtitle: "Sacred Edition", image: BOTTLES.communion, testid: "showcase-communion" },
+  { title: "Birthday", subtitle: "Celebration Series", image: BOTTLES.birthday, testid: "showcase-birthday" },
+  { title: "Housewarming", subtitle: "Home Edition", image: BOTTLES.housewarming, testid: "showcase-housewarming" },
 ];
 
 export const WHY_FEATURES = [
@@ -82,10 +110,10 @@ export const WHY_FEATURES = [
 ];
 
 export const PROCESS_STEPS = [
-  { step: "01", title: "Share Your Vision", description: "Send us your logo, photo, or design brief along with the event details.", },
-  { step: "02", title: "Receive Premium Preview", description: "Our design team crafts a luxury label mockup tailored to your story.", },
-  { step: "03", title: "Approve The Design", description: "Refine until perfect. We iterate as many times as you need — at no cost.", },
-  { step: "04", title: "Production & Delivery", description: "Premium printing, careful packaging, and on-time delivery across Kerala.", },
+  { step: "01", title: "Share Your Vision", description: "Send us your logo, photo, or design brief along with the event details." },
+  { step: "02", title: "Receive Premium Preview", description: "Our design team crafts a luxury label mockup tailored to your story." },
+  { step: "03", title: "Approve The Design", description: "Refine until perfect. We iterate as many times as you need — at no cost." },
+  { step: "04", title: "Production & Delivery", description: "Premium printing, careful packaging, and on-time delivery across Kerala." },
 ];
 
 export const INDUSTRIES = [
@@ -107,18 +135,18 @@ export const STATS = [
 ];
 
 export const GALLERY = [
-  { category: "Weddings", image: "https://images.pexels.com/photos/29040997/pexels-photo-29040997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", title: "Royal Wedding Branding" },
-  { category: "Weddings", image: "https://images.pexels.com/photos/4717555/pexels-photo-4717555.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", title: "Bride & Groom Edition" },
-  { category: "Corporate", image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80", title: "Annual Conference" },
-  { category: "Corporate", image: "https://images.unsplash.com/photo-1758520145140-c2dd8e78fc02?w=1200&q=80", title: "Boardroom Edition" },
-  { category: "Religious Events", image: "https://images.unsplash.com/photo-1606028153746-ad9b2c0a9c7e?w=1200&q=80", title: "Holy Communion" },
-  { category: "Religious Events", image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80", title: "Sacred Ceremony" },
-  { category: "Restaurants", image: "https://images.pexels.com/photos/32560854/pexels-photo-32560854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", title: "Fine Dining Label" },
-  { category: "Restaurants", image: "https://images.pexels.com/photos/6210568/pexels-photo-6210568.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", title: "Private Label" },
-  { category: "Catering", image: "https://images.pexels.com/photos/34321369/pexels-photo-34321369.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", title: "Catering Service" },
-  { category: "Catering", image: "https://images.pexels.com/photos/30726881/pexels-photo-30726881.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", title: "Banquet Branding" },
-  { category: "Housewarming", image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80", title: "Home Edition" },
-  { category: "Housewarming", image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200&q=80", title: "Welcome Home" },
+  { category: "Weddings", image: BOTTLES.wedding, title: "Bride & Groom Edition" },
+  { category: "Weddings", image: BOTTLES.birthday, title: "Royal Wedding Series" },
+  { category: "Corporate", image: BOTTLES.corporate, title: "Annual Conference Edition" },
+  { category: "Corporate", image: BOTTLES.political, title: "Brand Launch Bottle" },
+  { category: "Religious Events", image: BOTTLES.communion, title: "Holy Communion Bottle" },
+  { category: "Religious Events", image: BOTTLES.religious, title: "Sacred Ceremony Edition" },
+  { category: "Restaurants", image: BOTTLES.restaurant, title: "Fine Dining Private Label" },
+  { category: "Restaurants", image: BOTTLES.funeral, title: "Boutique Café Label" },
+  { category: "Catering", image: BOTTLES.catering, title: "Banquet Service Bottle" },
+  { category: "Catering", image: BOTTLES.housewarming, title: "Outdoor Event Bottle" },
+  { category: "Housewarming", image: BOTTLES.housewarming, title: "Welcome Home Edition" },
+  { category: "Housewarming", image: BOTTLES.wedding, title: "Family Gathering Bottle" },
 ];
 
 export const GALLERY_CATEGORIES = [
@@ -157,14 +185,15 @@ export const EVENT_TYPES = [
   "Housewarming",
   "Political / Social",
   "Restaurant Branding",
+  "Funeral Service",
   "Other",
 ];
 
 export const BOTTLE_SIZES = [
   "200 ml",
   "250 ml",
-  "330 ml",
-  "500 ml",
+  "300 ml PET",
+  "500 ml PET",
   "750 ml",
   "1 Litre",
   "Custom",

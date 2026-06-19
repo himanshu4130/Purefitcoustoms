@@ -45,7 +45,8 @@ export default function WhatWeDo() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#D4AF37]/15">
+        {/* Service cards — each features an actual bottle image */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {SERVICES.map((s, i) => {
             const Icon = s.icon;
             return (
@@ -56,21 +57,42 @@ export default function WhatWeDo() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.6, delay: i * 0.07 }}
-                className="group relative bg-[#0E0E0E] p-10 lg:p-12 hover:bg-[#0B3D2E]/40 transition-all duration-700 sheen overflow-hidden"
+                className="group relative bg-[#0A0A0A] border border-[#D4AF37]/15 hover:border-[#D4AF37]/50 transition-all duration-500 hover:-translate-y-1 overflow-hidden"
               >
-                <div className="flex items-start justify-between mb-10">
-                  <div className="w-14 h-14 border border-[#D4AF37]/40 flex items-center justify-center group-hover:border-[#D4AF37] group-hover:rotate-45 transition-all duration-500">
-                    <Icon size={22} className="text-[#D4AF37] group-hover:-rotate-45 transition-transform duration-500" />
+                {/* Bottle image — primary visual */}
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={s.image}
+                    alt={s.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/30 to-transparent" />
+
+                  {/* PureFit brand badge on bottle */}
+                  <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-[#F8F5EE]/95 flex items-center justify-center ring-1 ring-[#D4AF37]/50 shadow-md">
+                    <img src="/brand/logo.png" alt="" className="w-10 h-10 object-contain p-0.5" />
                   </div>
-                  <span className="font-serif text-2xl text-[#D4AF37]/40">0{i + 1}</span>
+
+                  {/* Number */}
+                  <span className="absolute top-4 left-4 font-serif text-2xl text-[#D4AF37]">0{i + 1}</span>
+
+                  {/* Icon */}
+                  <div className="absolute bottom-4 left-4 w-12 h-12 border border-[#D4AF37]/60 bg-[#0A0A0A]/70 backdrop-blur-md flex items-center justify-center">
+                    <Icon size={20} className="text-[#D4AF37]" />
+                  </div>
                 </div>
-                <h3 className="font-serif text-2xl lg:text-3xl text-white mb-4 leading-tight">
-                  {s.title}
-                </h3>
-                <p className="text-[#F8F5EE]/65 text-[15px] leading-relaxed">
-                  {s.description}
-                </p>
-                <div className="mt-8 h-px w-12 bg-[#D4AF37] group-hover:w-24 transition-all duration-500" />
+
+                {/* Text */}
+                <div className="p-7 lg:p-8">
+                  <h3 className="font-serif text-2xl lg:text-3xl text-white mb-3 leading-tight">
+                    {s.title}
+                  </h3>
+                  <p className="text-[#F8F5EE]/65 text-sm leading-relaxed">
+                    {s.description}
+                  </p>
+                  <div className="mt-6 h-px w-12 bg-[#D4AF37] group-hover:w-24 transition-all duration-500" />
+                </div>
               </motion.div>
             );
           })}

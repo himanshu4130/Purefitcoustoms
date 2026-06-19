@@ -1,11 +1,10 @@
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import useSiteContent from "@/hooks/useSiteContent";
 import { buildMediaUrl } from "@/lib/api";
-
-const DEFAULT_BG = "https://images.pexels.com/photos/4717555/pexels-photo-4717555.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=1200&w=1920";
-const DEFAULT_FEATURED = "https://images.pexels.com/photos/6716002/pexels-photo-6716002.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=700";
+import { HERO_ROTATION } from "@/lib/content";
 
 export default function Hero() {
   const { settings, hero } = useSiteContent();
@@ -16,26 +15,31 @@ export default function Hero() {
     settings.hero_subheading ||
     "Premium customized water bottle branding for weddings, celebrations, businesses, restaurants, and events across Kerala.";
 
-  const bgUrl = settings.hero_background_url ? buildMediaUrl(settings.hero_background_url) : DEFAULT_BG;
-  const featured = hero.find((h) => h.is_featured) || hero[0];
-  const featuredImg = settings.hero_featured_url
-    ? buildMediaUrl(settings.hero_featured_url)
-    : featured?.image_id
-    ? buildMediaUrl(featured.image_id)
-    : DEFAULT_FEATURED;
-  const featuredTitle = featured?.title || "Wedding Edition · 2026";
-  const featuredSubtitle = featured?.subtitle || "Featured";
+  // Build rotation slides: admin-added hero items take priority, else defaults
+  const slides = hero.length > 0
+    ? hero.slice(0, 6).map((h) => ({
+        title: h.title || "Custom Bottle",
+        subtitle: h.subtitle || h.category || "",
+        image: h.image_id ? buildMediaUrl(h.image_id) : HERO_ROTATION[0].image,
+      }))
+    : HERO_ROTATION;
 
-  // Split headline into two lines if it contains "Tells"
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % slides.length), 5000);
+    return () => clearInterval(t);
+  }, [slides.length]);
+
+  const current = slides[idx];
+
   const renderHeadline = () => {
-    if (headline.toLowerCase().includes("tells")) {
-      const before = headline.split(/tells/i)[0].trim();
-      const after = headline.split(/tells/i)[1]?.trim();
+    if (/tells/i.test(headline)) {
+      const [before, after] = headline.split(/tells/i);
       return (
         <>
-          {before}
+          {before.trim()}
           <br />
-          <span className="italic text-[#D4AF37]">Tells</span> {after}
+          <span className="italic text-[#D4AF37]">Tells</span> {after.trim()}
         </>
       );
     }
@@ -47,23 +51,24 @@ export default function Hero() {
       data-testid="hero-section"
       className="relative min-h-screen flex items-center overflow-hidden bg-[#0A0A0A]"
     >
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${bgUrl}')` }} />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#111111]/85 via-[#111111]/75 to-[#0B3D2E]/90" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.18),transparent_50%)]" />
+      {/* Deep gradient background (no event imagery) */}
+      <div className="absolute inset-0 bg-[linear-gradient(140deg,#0A0A0A_0%,#0B3D2E_50%,#0A0A0A_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(212,175,55,0.20),transparent_55%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(11,61,46,0.6),transparent_60%)]" />
       <div className="grain-overlay" />
 
-      {/* Watermark logo (subtle) */}
+      {/* Subtle giant watermark logo */}
       <img
         src="/brand/logo.png"
         alt=""
         aria-hidden="true"
-        className="absolute right-[-4rem] bottom-[-4rem] w-[28rem] opacity-[0.04] pointer-events-none select-none"
+        className="absolute right-[-6rem] bottom-[-6rem] w-[36rem] opacity-[0.035] pointer-events-none select-none"
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-28 pb-20 w-full">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 pb-20 w-full">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left: text */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-6">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="flex items-center gap-3 mb-8">
               <div className="w-12 h-px bg-[#D4AF37]" />
               <span className="text-[#D4AF37] uppercase text-xs tracking-[0.35em]">{overline}</span>
@@ -107,26 +112,61 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: featured bottle imagery */}
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.1, delay: 0.4 }} className="lg:col-span-5 relative hidden lg:block">
-            <div className="relative aspect-[3/4] overflow-hidden border border-[#D4AF37]/30">
-              <img src={featuredImg} alt={featuredTitle} className="w-full h-full object-cover float-slow" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/80 via-transparent to-transparent" />
-              {/* Brand badge overlay on bottle card */}
-              <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-[#F8F5EE]/95 flex items-center justify-center ring-1 ring-[#D4AF37]/60">
-                <img src="/brand/logo.png" alt="PureFit Customs" className="w-10 h-10 object-contain p-0.5" />
-              </div>
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] mb-1">{featuredSubtitle}</div>
-                <div className="font-serif text-2xl text-white">{featuredTitle}</div>
+          {/* Right: ROTATING BOTTLE SHOWCASE */}
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.1, delay: 0.4 }} className="lg:col-span-6 relative">
+            <div className="relative aspect-[4/5] lg:aspect-[3/4] max-w-md mx-auto">
+              {/* Decorative frames */}
+              <div className="absolute -bottom-8 -left-8 w-40 h-40 border border-[#D4AF37]/40 -z-10" />
+              <div className="absolute -top-8 -right-8 w-32 h-32 bg-[#0B3D2E]/40 -z-10" />
+
+              {/* Rotating bottle stack */}
+              <div className="relative w-full h-full overflow-hidden border border-[#D4AF37]/30 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
+                <AnimatePresence mode="popLayout">
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 1.08 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 1.2, ease: [0.22, 0.61, 0.36, 1] }}
+                    className="absolute inset-0"
+                    data-testid={`hero-slide-${idx}`}
+                  >
+                    <img src={current.image} alt={current.title} className="absolute inset-0 w-full h-full object-cover" />
+                    {/* dark gradient for legibility */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* PureFit brand stamp on every bottle */}
+                <div className="absolute top-5 right-5 w-14 h-14 rounded-full bg-[#F8F5EE]/95 flex items-center justify-center ring-1 ring-[#D4AF37]/60 shadow-lg">
+                  <img src="/brand/logo.png" alt="PureFit Customs" className="w-12 h-12 object-contain p-0.5" />
+                </div>
+
+                {/* Caption */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                  <div className="text-[10px] uppercase tracking-[0.35em] text-[#D4AF37] mb-1">{current.subtitle}</div>
+                  <div className="font-serif text-2xl lg:text-3xl text-white">{current.title}</div>
+                </div>
+
+                {/* Slide indicators */}
+                <div className="absolute top-5 left-5 flex gap-1.5">
+                  {slides.map((_, i) => (
+                    <button
+                      key={i}
+                      data-testid={`hero-dot-${i}`}
+                      onClick={() => setIdx(i)}
+                      aria-label={`Slide ${i + 1}`}
+                      className={`h-px transition-all duration-500 ${i === idx ? "w-8 bg-[#D4AF37]" : "w-4 bg-[#D4AF37]/30"}`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 border border-[#D4AF37]/40 -z-10" />
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#0B3D2E]/40 -z-10" />
           </motion.div>
         </div>
       </div>
 
+      {/* Scroll cue */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
         <span className="text-[10px] uppercase tracking-[0.3em] text-[#F8F5EE]/50">Scroll</span>
         <div className="w-px h-12 bg-gradient-to-b from-[#D4AF37] to-transparent" />

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { MessageCircle, ArrowRight } from "lucide-react";
-import { CONTACT } from "@/lib/content";
+import { CONTACT, BOTTLES } from "@/lib/content";
 
 export default function CTASection() {
   return (
@@ -9,14 +9,12 @@ export default function CTASection() {
       data-testid="cta-section"
       className="relative py-28 lg:py-36 bg-[#111111] overflow-hidden"
     >
+      {/* Bottle-themed background */}
       <div
         className="absolute inset-0 opacity-25 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://images.pexels.com/photos/29040997/pexels-photo-29040997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1600')",
-        }}
+        style={{ backgroundImage: `url('${BOTTLES.catering}')` }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#111111]/95 via-[#0B3D2E]/80 to-[#111111]/95" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#111111]/95 via-[#0B3D2E]/85 to-[#111111]/95" />
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
