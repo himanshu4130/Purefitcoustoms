@@ -489,6 +489,7 @@ async def auth_session(request: Request, response: Response):
         "name": name,
         "picture": picture,
         "is_admin": True,
+        "session_token": session_token,  # also returned so frontend can store it in localStorage (cookies blocked by ingress CORS)
     }
 
 
@@ -754,7 +755,8 @@ app.include_router(api_router)
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","),
+    allow_origins=os.environ.get("CORS_ORIGINS", "").split(",") if os.environ.get("CORS_ORIGINS") and os.environ.get("CORS_ORIGINS") != "*" else [],
+    allow_origin_regex=r"https?://([a-zA-Z0-9-]+\.)*(preview\.emergentagent\.com|localhost(:\d+)?)$",
     allow_methods=["*"],
     allow_headers=["*"],
 )

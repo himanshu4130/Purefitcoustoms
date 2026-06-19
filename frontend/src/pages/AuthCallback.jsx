@@ -6,7 +6,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 
 // Module-level: survives React 19 StrictMode unmount/remount (useRef does NOT).
 const consumedSessions = new Set();
-const inflightSessions = new Map(); // session_id -> Promise
+const inflightSessions = new Map();
 
 export default function AuthCallback() {
   const navigate = useNavigate();
@@ -25,16 +25,14 @@ export default function AuthCallback() {
     window.history.replaceState(null, "", window.location.pathname);
 
     if (consumedSessions.has(sessionId)) {
-      // already finalised — go to admin (cookie should be set)
       navigate("/admin", { replace: true });
       return;
     }
 
-    // De-dupe simultaneous exchanges across StrictMode double-mount
     let promise = inflightSessions.get(sessionId);
     if (!promise) {
       promise = api
-        .post("/auth/session", { session_id: sessionId }, { withCredentials: true })
+        .post("/auth/session", { session_id: sessionId })
         .then((res) => {
           consumedSessions.add(sessionId);
           return res.data;
@@ -45,7 +43,7 @@ export default function AuthCallback() {
 
     promise
       .then((data) => {
-        setUser(data);
+        setUser(data); // stores token in localStorage + sets user state
         navigate("/admin", { replace: true, state: { user: data } });
       })
       .catch((err) => {

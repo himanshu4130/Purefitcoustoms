@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
-import { api } from "@/lib/api";
+import { api, getToken, setToken, clearToken } from "@/lib/api";
 
 const AuthContext = createContext(null);
 
@@ -8,10 +8,16 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const checkAuth = useCallback(async () => {
+    if (!getToken()) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
     try {
-      const { data } = await api.get("/auth/me", { withCredentials: true });
+      const { data } = await api.get("/auth/me");
       setUser(data);
     } catch {
+      clearToken();
       setUser(null);
     } finally {
       setLoading(false);
@@ -29,12 +35,18 @@ export function AuthProvider({ children }) {
   }, [checkAuth]);
 
   const logout = async () => {
-    try { await api.post("/auth/logout", {}, { withCredentials: true }); } catch (_e) { /* ignore network errors on logout */ }
+    try { await api.post("/auth/logout", {}); } catch (_e) { /* ignore network errors */ }
+    clearToken();
     setUser(null);
   };
 
+  const loginWithData = (data) => {
+    if (data?.session_token) setToken(data.session_token);
+    setUser(data);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, checkAuth, logout, setUser }}>
+    <AuthContext.Provider value={{ user, loading, checkAuth, logout, setUser: loginWithData }}>
       {children}
     </AuthContext.Provider>
   );

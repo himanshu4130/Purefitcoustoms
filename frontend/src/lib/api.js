@@ -4,10 +4,32 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
 export const BACKEND = BACKEND_URL;
 
+export const TOKEN_KEY = "purefit_admin_token";
+
+export const getToken = () => {
+  try { return localStorage.getItem(TOKEN_KEY); } catch (_e) { return null; }
+};
+export const setToken = (token) => {
+  try {
+    if (token) localStorage.setItem(TOKEN_KEY, token);
+    else localStorage.removeItem(TOKEN_KEY);
+  } catch (_e) { /* ignore */ }
+};
+export const clearToken = () => setToken(null);
+
 export const api = axios.create({
   baseURL: API,
   headers: { "Content-Type": "application/json" },
-  withCredentials: true,
+});
+
+// Attach Bearer token to every request when available
+api.interceptors.request.use((config) => {
+  const t = getToken();
+  if (t) {
+    config.headers = config.headers || {};
+    config.headers.Authorization = `Bearer ${t}`;
+  }
+  return config;
 });
 
 export const fileToBase64 = (file) =>
