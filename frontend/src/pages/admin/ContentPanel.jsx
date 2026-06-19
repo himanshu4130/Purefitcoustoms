@@ -17,6 +17,8 @@ const blank = (kind = "gallery") => ({
   title: "",
   subtitle: "",
   image_id: "",
+  client_name: "",
+  quantity: "",
   quote: "",
   author_name: "",
   author_role: "",
@@ -136,18 +138,24 @@ export default function ContentPanel() {
           <div className="grid sm:grid-cols-2 gap-5">
             {(draft.kind === "gallery" || draft.kind === "hero") && (
               <>
-                <Field label="Title">
-                  <input data-testid="content-input-title" value={draft.title || ""} onChange={(e) => setDraft({ ...draft, title: e.target.value })} className="input-luxury" placeholder="e.g., Bride &amp; Groom Edition" />
+                <Field label="Title / Project Name">
+                  <input data-testid="content-input-title" value={draft.title || ""} onChange={(e) => setDraft({ ...draft, title: e.target.value })} className="input-luxury" placeholder="e.g., Aishwarya &amp; Rohan Wedding" />
                 </Field>
                 <Field label="Subtitle / Tag">
                   <input data-testid="content-input-subtitle" value={draft.subtitle || ""} onChange={(e) => setDraft({ ...draft, subtitle: e.target.value })} className="input-luxury" placeholder="e.g., Wedding Edition" />
+                </Field>
+                <Field label="Client Name (shown on gallery card)">
+                  <input data-testid="content-input-client-name" value={draft.client_name || ""} onChange={(e) => setDraft({ ...draft, client_name: e.target.value })} className="input-luxury" placeholder="e.g., Royal Cloud Caterers" />
+                </Field>
+                <Field label="Quantity Supplied">
+                  <input data-testid="content-input-quantity" value={draft.quantity || ""} onChange={(e) => setDraft({ ...draft, quantity: e.target.value })} className="input-luxury" placeholder="e.g., 500 Bottles" />
                 </Field>
                 <Field label="Category">
                   <select data-testid="content-input-category" value={draft.category || ""} onChange={(e) => setDraft({ ...draft, category: e.target.value })} className="input-luxury">
                     {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </Field>
-                <Field label="Image">
+                <Field label="Bottle Image">
                   <ImagePicker
                     media={media}
                     value={draft.image_id}

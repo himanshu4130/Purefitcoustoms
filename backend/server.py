@@ -209,6 +209,8 @@ class SiteContentItem(BaseModel):
     title: Optional[str] = ""
     subtitle: Optional[str] = ""
     image_id: Optional[str] = None  # links to media collection
+    client_name: Optional[str] = ""
+    quantity: Optional[str] = ""
     quote: Optional[str] = ""
     author_name: Optional[str] = ""
     author_role: Optional[str] = ""
@@ -224,6 +226,8 @@ class SiteContentCreate(BaseModel):
     title: Optional[str] = ""
     subtitle: Optional[str] = ""
     image_id: Optional[str] = None
+    client_name: Optional[str] = ""
+    quantity: Optional[str] = ""
     quote: Optional[str] = ""
     author_name: Optional[str] = ""
     author_role: Optional[str] = ""
@@ -237,6 +241,8 @@ class SiteContentUpdate(BaseModel):
     title: Optional[str] = None
     subtitle: Optional[str] = None
     image_id: Optional[str] = None
+    client_name: Optional[str] = None
+    quantity: Optional[str] = None
     quote: Optional[str] = None
     author_name: Optional[str] = None
     author_role: Optional[str] = None

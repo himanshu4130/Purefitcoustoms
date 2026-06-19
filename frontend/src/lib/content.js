@@ -135,18 +135,18 @@ export const STATS = [
 ];
 
 export const GALLERY = [
-  { category: "Weddings", image: BOTTLES.wedding, title: "Bride & Groom Edition" },
-  { category: "Weddings", image: BOTTLES.birthday, title: "Royal Wedding Series" },
-  { category: "Corporate", image: BOTTLES.corporate, title: "Annual Conference Edition" },
-  { category: "Corporate", image: BOTTLES.political, title: "Brand Launch Bottle" },
-  { category: "Religious Events", image: BOTTLES.communion, title: "Holy Communion Bottle" },
-  { category: "Religious Events", image: BOTTLES.religious, title: "Sacred Ceremony Edition" },
-  { category: "Restaurants", image: BOTTLES.restaurant, title: "Fine Dining Private Label" },
-  { category: "Restaurants", image: BOTTLES.funeral, title: "Boutique Café Label" },
-  { category: "Catering", image: BOTTLES.catering, title: "Banquet Service Bottle" },
-  { category: "Catering", image: BOTTLES.housewarming, title: "Outdoor Event Bottle" },
-  { category: "Housewarming", image: BOTTLES.housewarming, title: "Welcome Home Edition" },
-  { category: "Housewarming", image: BOTTLES.wedding, title: "Family Gathering Bottle" },
+  { category: "Weddings", image: BOTTLES.wedding, title: "Aishwarya & Rohan", client_name: "Aishwarya & Rohan", quantity: "300 Bottles" },
+  { category: "Weddings", image: BOTTLES.birthday, title: "Royal Wedding Series", client_name: "Anjali & Kiran", quantity: "500 Bottles" },
+  { category: "Corporate", image: BOTTLES.corporate, title: "Kerala Spices Co.", client_name: "Kerala Spices Co.", quantity: "5000 Bottles" },
+  { category: "Corporate", image: BOTTLES.political, title: "Brand Launch", client_name: "Gamut Events", quantity: "1000 Bottles" },
+  { category: "Religious Events", image: BOTTLES.communion, title: "Holy Communion", client_name: "Holy Family Church", quantity: "200 Bottles" },
+  { category: "Religious Events", image: BOTTLES.religious, title: "Sacred Ceremony", client_name: "St. Mary's Parish", quantity: "350 Bottles" },
+  { category: "Restaurants", image: BOTTLES.restaurant, title: "Meera Fine Dining", client_name: "Meera Restaurants", quantity: "2500 Bottles" },
+  { category: "Restaurants", image: BOTTLES.funeral, title: "Boutique Café", client_name: "Café Noir", quantity: "800 Bottles" },
+  { category: "Catering", image: BOTTLES.catering, title: "Royal Catering Co.", client_name: "Royal Cloud Caterers", quantity: "500 Bottles" },
+  { category: "Catering", image: BOTTLES.housewarming, title: "Banquet Service", client_name: "Grand Banquets", quantity: "1200 Bottles" },
+  { category: "Housewarming", image: BOTTLES.housewarming, title: "Welcome Home", client_name: "The Joseph Family", quantity: "150 Bottles" },
+  { category: "Housewarming", image: BOTTLES.wedding, title: "Family Gathering", client_name: "The Mathew Residence", quantity: "100 Bottles" },
 ];
 
 export const GALLERY_CATEGORIES = [

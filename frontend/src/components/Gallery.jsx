@@ -16,6 +16,8 @@ export default function Gallery() {
         category: g.category || "Weddings",
         image: buildMediaUrl(g.image_id),
         title: g.title || "Custom Bottle",
+        client_name: g.client_name || "",
+        quantity: g.quantity || "",
       }));
     return dynamic.length > 0 ? dynamic : GALLERY;
   }, [gallery]);
@@ -38,12 +40,13 @@ export default function Gallery() {
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-10 h-px bg-[#D4AF37]" />
-            <span className="text-[#D4AF37] uppercase text-xs tracking-[0.35em]">Project Gallery</span>
+            <span className="text-[#D4AF37] uppercase text-xs tracking-[0.35em]">Recent Client Projects</span>
             <div className="w-10 h-px bg-[#D4AF37]" />
           </div>
           <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.05]">
             A Curated <span className="italic text-[#D4AF37]">Portfolio</span>
           </h2>
+          <p className="mt-4 text-[#F8F5EE]/60 text-sm uppercase tracking-[0.2em]">Real bottles · Real labels · Real clients</p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 mb-14">
@@ -63,30 +66,47 @@ export default function Gallery() {
           ))}
         </div>
 
-        <motion.div layout className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filtered.map((item, i) => (
               <motion.div
-                key={`${item.title}-${i}`}
+                key={`${item.client_name || item.title}-${i}`}
                 layout
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
                 data-testid={`gallery-item-${i}`}
-                className="group relative aspect-[4/5] overflow-hidden cursor-pointer"
+                className="group bg-[#0A0A0A] border border-[#D4AF37]/15 hover:border-[#D4AF37]/60 transition-colors duration-500 overflow-hidden"
               >
-                <img src={item.image} alt={item.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#111111]/30 to-transparent" />
-                <div className="absolute inset-0 border border-transparent group-hover:border-[#D4AF37]/60 transition-colors duration-500" />
-
-                <div className="absolute top-3 right-3 w-9 h-9 rounded-full bg-[#F8F5EE]/90 flex items-center justify-center ring-1 ring-[#D4AF37]/40 opacity-80 group-hover:opacity-100 transition-opacity">
-                  <img src="/brand/logo.png" alt="PureFit" className="w-8 h-8 object-contain p-0.5" />
+                {/* Bottle image */}
+                <div className="relative aspect-[4/5] overflow-hidden bg-[#0B3D2E]/30">
+                  <img
+                    src={item.image}
+                    alt={item.client_name || item.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
+                  />
+                  {/* Category chip */}
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-[#0A0A0A]/80 backdrop-blur-sm border border-[#D4AF37]/40 text-[10px] uppercase tracking-[0.25em] text-[#D4AF37]">
+                    {item.category}
+                  </div>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-6">
-                  <div className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] mb-1">{item.category}</div>
-                  <h4 className="font-serif text-lg lg:text-xl text-white">{item.title}</h4>
+                {/* Card body */}
+                <div className="p-6 border-t border-[#D4AF37]/15">
+                  <h4 className="font-serif text-xl lg:text-2xl text-white leading-tight">
+                    {item.client_name || item.title}
+                  </h4>
+                  {item.client_name && item.title && item.client_name !== item.title && (
+                    <div className="text-[10px] uppercase tracking-[0.25em] text-[#F8F5EE]/40 mt-1">
+                      {item.title}
+                    </div>
+                  )}
+                  <div className="mt-4 pt-4 border-t border-[#D4AF37]/15 flex items-center justify-between">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#F8F5EE]/50">Supplied</span>
+                    <span className="font-serif text-lg text-[#D4AF37]">{item.quantity || "—"}</span>
+                  </div>
                 </div>
               </motion.div>
             ))}
