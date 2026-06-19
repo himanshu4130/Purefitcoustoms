@@ -1,75 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
     margin: 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
+    font-family: 'DM Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #111111;
+    color: #F8F5EE;
 }
 
-code {
-    font-family:
-        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+.font-serif {
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: -0.01em;
+}
+
+.font-sans {
+    font-family: 'DM Sans', system-ui, sans-serif;
 }
 
 @layer base {
     :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
-    }
-    .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
+        --background: 0 0% 6.7%;
+        --foreground: 39 33% 95%;
+        --card: 0 0% 10.2%;
+        --card-foreground: 39 33% 95%;
+        --popover: 0 0% 10.2%;
+        --popover-foreground: 39 33% 95%;
+        --primary: 159 70% 14.5%;
+        --primary-foreground: 39 33% 95%;
         --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
+        --secondary-foreground: 39 33% 95%;
         --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
+        --muted-foreground: 39 20% 75%;
+        --accent: 45 65% 52%;
+        --accent-foreground: 0 0% 6.7%;
         --destructive: 0 62.8% 30.6%;
         --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
+        --border: 45 65% 52% / 0.2;
+        --input: 0 0% 18%;
+        --ring: 45 65% 52%;
+        --radius: 0.5rem;
     }
 }
 
@@ -82,34 +56,103 @@ code {
     }
 }
 
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #111111;
+}
+::-webkit-scrollbar-thumb {
+    background: #0B3D2E;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #D4AF37;
+}
+
+/* Selection */
+::selection {
+    background-color: #D4AF37;
+    color: #111111;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    animation: marquee 40s linear infinite;
+}
+
+/* Subtle floating animation */
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}
+.float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+/* Gold shimmer for divider lines */
+.gold-line {
+    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    height: 1px;
+}
+
+/* Premium grain texture overlay */
+.grain-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 1;
+}
+
+/* Glass card */
+.glass-card {
+    background: rgba(11, 61, 46, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+.glass-dark {
+    background: rgba(17, 17, 17, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+/* Hide default outline, use custom focus ring */
+input:focus, textarea:focus, select:focus, button:focus-visible {
+    outline: none;
+}
+
+/* Premium bottle shadow */
+.bottle-shadow {
+    filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.6))
+            drop-shadow(0 0 30px rgba(212, 175, 55, 0.15));
+}
+
+/* Slow gradient sheen on hover */
+.sheen {
+    position: relative;
+    overflow: hidden;
+}
+.sheen::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+    transition: left 0.8s ease;
+}
+.sheen:hover::after { left: 100%; }
+
 @layer base {
     [data-debug-wrapper="true"] {
         display: contents !important;
-    }
-
-    [data-debug-wrapper="true"] > * {
-        margin-left: inherit;
-        margin-right: inherit;
-        margin-top: inherit;
-        margin-bottom: inherit;
-        padding-left: inherit;
-        padding-right: inherit;
-        padding-top: inherit;
-        padding-bottom: inherit;
-        column-gap: inherit;
-        row-gap: inherit;
-        gap: inherit;
-        border-left-width: inherit;
-        border-right-width: inherit;
-        border-top-width: inherit;
-        border-bottom-width: inherit;
-        border-left-style: inherit;
-        border-right-style: inherit;
-        border-top-style: inherit;
-        border-bottom-style: inherit;
-        border-left-color: inherit;
-        border-right-color: inherit;
-        border-top-color: inherit;
-        border-bottom-color: inherit;
     }
 }
