@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
 import { CONTACT, NAV_LINKS } from "@/lib/content";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
@@ -12,32 +13,28 @@ export default function Footer() {
         <div className="grid lg:grid-cols-12 gap-12">
           {/* Brand */}
           <div className="lg:col-span-5">
-            <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 border border-[#D4AF37]/60 flex items-center justify-center rotate-45">
-                <span className="-rotate-45 font-serif text-[#D4AF37] text-xl">P</span>
-              </div>
-              <div className="leading-none">
-                <div className="font-serif text-xl text-white">PureFit</div>
-                <div className="text-[10px] tracking-[0.3em] text-[#D4AF37] uppercase">Customs</div>
-              </div>
-            </Link>
-            <p className="text-[#F8F5EE]/60 leading-relaxed max-w-md">
+            <Logo variant="full" size="lg" withTagline testid="footer-logo" />
+            <p className="mt-8 text-[#F8F5EE]/60 leading-relaxed max-w-md">
               Kerala&apos;s premium customized water bottle branding studio. We turn ordinary bottles
               into objects of memory for weddings, events, and brands.
             </p>
             <div className="mt-8 flex items-center gap-4">
               <a
-                href="#"
+                href="https://instagram.com"
                 data-testid="footer-instagram"
                 aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#111111] transition-colors"
               >
                 <Instagram size={16} />
               </a>
               <a
-                href="#"
+                href="https://facebook.com"
                 data-testid="footer-facebook"
                 aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#111111] transition-colors"
               >
                 <Facebook size={16} />

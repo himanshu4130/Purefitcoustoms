@@ -2,13 +2,19 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/content";
+import useSiteContent from "@/hooks/useSiteContent";
 
 export default function Testimonials() {
   const [i, setI] = useState(0);
-  const t = TESTIMONIALS[i];
+  const { testimonial } = useSiteContent();
 
-  const prev = () => setI((p) => (p - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
-  const next = () => setI((p) => (p + 1) % TESTIMONIALS.length);
+  const items = (testimonial && testimonial.length > 0)
+    ? testimonial.map((t) => ({ name: t.author_name, role: t.author_role, quote: t.quote }))
+    : TESTIMONIALS;
+
+  const t = items[i % items.length];
+  const prev = () => setI((p) => (p - 1 + items.length) % items.length);
+  const next = () => setI((p) => (p + 1) % items.length);
 
   return (
     <section
@@ -50,33 +56,21 @@ export default function Testimonials() {
         </div>
 
         <div className="flex items-center justify-center gap-6 mt-12">
-          <button
-            data-testid="testimonial-prev"
-            onClick={prev}
-            className="w-12 h-12 border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#111111] transition-colors duration-300"
-            aria-label="Previous testimonial"
-          >
+          <button data-testid="testimonial-prev" onClick={prev} className="w-12 h-12 border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#111111] transition-colors duration-300" aria-label="Previous testimonial">
             <ChevronLeft size={18} />
           </button>
           <div className="flex items-center gap-2">
-            {TESTIMONIALS.map((_, idx) => (
+            {items.map((_, idx) => (
               <button
                 key={idx}
                 data-testid={`testimonial-dot-${idx}`}
                 onClick={() => setI(idx)}
-                className={`h-px transition-all duration-500 ${
-                  idx === i ? "w-10 bg-[#D4AF37]" : "w-5 bg-[#D4AF37]/30"
-                }`}
+                className={`h-px transition-all duration-500 ${idx === i ? "w-10 bg-[#D4AF37]" : "w-5 bg-[#D4AF37]/30"}`}
                 aria-label={`Go to testimonial ${idx + 1}`}
               />
             ))}
           </div>
-          <button
-            data-testid="testimonial-next"
-            onClick={next}
-            className="w-12 h-12 border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#111111] transition-colors duration-300"
-            aria-label="Next testimonial"
-          >
+          <button data-testid="testimonial-next" onClick={next} className="w-12 h-12 border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#111111] transition-colors duration-300" aria-label="Next testimonial">
             <ChevronRight size={18} />
           </button>
         </div>

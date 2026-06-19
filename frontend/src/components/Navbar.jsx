@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/content";
+import Logo from "@/components/Logo";
+import useSiteContent from "@/hooks/useSiteContent";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { settings } = useSiteContent();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -22,20 +25,12 @@ export default function Navbar() {
       data-testid="site-navbar"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#111111]/80 backdrop-blur-xl border-b border-[#D4AF37]/15 py-3"
+          ? "bg-[#111111]/85 backdrop-blur-xl border-b border-[#D4AF37]/15 py-3"
           : "bg-transparent py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between">
-        <Link to="/" data-testid="nav-logo" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 border border-[#D4AF37]/60 flex items-center justify-center rotate-45 group-hover:rotate-[225deg] transition-transform duration-700">
-            <span className="-rotate-45 group-hover:-rotate-[225deg] transition-transform duration-700 font-serif text-[#D4AF37] text-xl">P</span>
-          </div>
-          <div className="flex flex-col leading-none">
-            <span className="font-serif text-xl tracking-wide text-white">PureFit</span>
-            <span className="text-[10px] tracking-[0.3em] text-[#D4AF37] uppercase">Customs</span>
-          </div>
-        </Link>
+        <Logo variant="full" size="md" testid="nav-logo" settings={settings} />
 
         <nav className="hidden md:flex items-center gap-10">
           {NAV_LINKS.map((l) => (

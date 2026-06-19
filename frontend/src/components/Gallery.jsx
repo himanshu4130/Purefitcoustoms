@@ -1,10 +1,31 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GALLERY, GALLERY_CATEGORIES } from "@/lib/content";
+import useSiteContent from "@/hooks/useSiteContent";
+import { buildMediaUrl } from "@/lib/api";
 
 export default function Gallery() {
   const [active, setActive] = useState("All");
-  const filtered = active === "All" ? GALLERY : GALLERY.filter((g) => g.category === active);
+  const { gallery } = useSiteContent();
+
+  // Merge dynamic gallery from admin with static defaults
+  const items = useMemo(() => {
+    const dynamic = gallery
+      .filter((g) => g.image_id)
+      .map((g) => ({
+        category: g.category || "Weddings",
+        image: buildMediaUrl(g.image_id),
+        title: g.title || "Custom Bottle",
+      }));
+    return dynamic.length > 0 ? dynamic : GALLERY;
+  }, [gallery]);
+
+  const cats = useMemo(() => {
+    const cset = new Set(items.map((i) => i.category));
+    return ["All", ...GALLERY_CATEGORIES.filter((c) => c !== "All" && cset.has(c)), ...[...cset].filter((c) => !GALLERY_CATEGORIES.includes(c))];
+  }, [items]);
+
+  const filtered = active === "All" ? items : items.filter((g) => g.category === active);
 
   return (
     <section
@@ -25,9 +46,8 @@ export default function Gallery() {
           </h2>
         </div>
 
-        {/* Filters */}
         <div className="flex flex-wrap justify-center gap-3 mb-14">
-          {GALLERY_CATEGORIES.map((cat) => (
+          {cats.map((cat) => (
             <button
               key={cat}
               data-testid={`gallery-filter-${cat.toLowerCase().replace(/\s+/g, "-")}`}
@@ -56,14 +76,14 @@ export default function Gallery() {
                 data-testid={`gallery-item-${i}`}
                 className="group relative aspect-[4/5] overflow-hidden cursor-pointer"
               >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110"
-                />
+                <img src={item.image} alt={item.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#111111]/30 to-transparent" />
                 <div className="absolute inset-0 border border-transparent group-hover:border-[#D4AF37]/60 transition-colors duration-500" />
+
+                <div className="absolute top-3 right-3 w-9 h-9 rounded-full bg-[#F8F5EE]/90 flex items-center justify-center ring-1 ring-[#D4AF37]/40 opacity-80 group-hover:opacity-100 transition-opacity">
+                  <img src="/brand/logo.png" alt="PureFit" className="w-8 h-8 object-contain p-0.5" />
+                </div>
+
                 <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-6">
                   <div className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] mb-1">{item.category}</div>
                   <h4 className="font-serif text-lg lg:text-xl text-white">{item.title}</h4>

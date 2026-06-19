@@ -1,7 +1,25 @@
 import { motion } from "framer-motion";
 import { SHOWCASE } from "@/lib/content";
+import useSiteContent from "@/hooks/useSiteContent";
+import { buildMediaUrl } from "@/lib/api";
 
 export default function Showcase() {
+  const { hero } = useSiteContent();
+
+  // Use hero items from admin if available, else fall back to static showcase data
+  const items = hero.length >= 3
+    ? hero.slice(0, 6).map((h, i) => ({
+        title: h.title || "Custom Bottle",
+        subtitle: h.subtitle || h.category || "",
+        image: h.image_id ? buildMediaUrl(h.image_id) : SHOWCASE[i % SHOWCASE.length].image,
+        testid: `showcase-dynamic-${i}`,
+      }))
+    : SHOWCASE;
+
+  // Pad to 6 items
+  while (items.length < 6) items.push(SHOWCASE[items.length % SHOWCASE.length]);
+  const display = items.slice(0, 6);
+
   return (
     <section
       id="showcase"
@@ -28,21 +46,17 @@ export default function Showcase() {
           </p>
         </div>
 
-        {/* Bento grid */}
         <div className="grid grid-cols-12 gap-4 lg:gap-6">
-          {SHOWCASE.map((item, i) => {
-            // Bento sizes
+          {display.map((item, i) => {
             const span =
               i === 0 ? "col-span-12 lg:col-span-7 row-span-2 aspect-[16/12] lg:aspect-auto lg:h-[600px]" :
               i === 1 ? "col-span-12 sm:col-span-6 lg:col-span-5 aspect-[4/3]" :
               i === 2 ? "col-span-12 sm:col-span-6 lg:col-span-5 aspect-[4/3]" :
-              i === 3 ? "col-span-12 sm:col-span-4 lg:col-span-4 aspect-square" :
-              i === 4 ? "col-span-12 sm:col-span-4 lg:col-span-4 aspect-square" :
                         "col-span-12 sm:col-span-4 lg:col-span-4 aspect-square";
 
             return (
               <motion.div
-                key={item.title}
+                key={`${item.title}-${i}`}
                 data-testid={item.testid}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -50,14 +64,15 @@ export default function Showcase() {
                 transition={{ duration: 0.7, delay: i * 0.08 }}
                 className={`relative group overflow-hidden ${span} cursor-pointer`}
               >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110"
-                  loading="lazy"
-                />
+                <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-110" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#111111]/30 to-transparent" />
                 <div className="absolute inset-0 border border-transparent group-hover:border-[#D4AF37]/60 transition-colors duration-500" />
+
+                {/* Brand stamp on showcase card */}
+                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#F8F5EE]/90 flex items-center justify-center ring-1 ring-[#D4AF37]/40 opacity-80 group-hover:opacity-100 transition-opacity">
+                  <img src="/brand/logo.png" alt="PureFit" className="w-9 h-9 object-contain p-0.5" />
+                </div>
+
                 <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
                   <div className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] mb-2">{item.subtitle}</div>
                   <h3 className="font-serif text-2xl lg:text-3xl text-white">{item.title}</h3>
