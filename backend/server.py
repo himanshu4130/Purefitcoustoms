@@ -415,6 +415,7 @@ async def auth_session(request: Request, response: Response):
     session_id = body.get("session_id")
     if not session_id:
         raise HTTPException(status_code=400, detail="session_id required")
+    logger.info(f"Auth session exchange: id_prefix={session_id[:8]}… len={len(session_id)}")
 
     # Exchange with Emergent Auth
     try:
@@ -424,6 +425,8 @@ async def auth_session(request: Request, response: Response):
             headers={"X-Session-ID": session_id},
             timeout=15,
         )
+        if r.status_code != 200:
+            logger.error(f"Emergent /session-data returned {r.status_code}: {r.text[:200]}")
         r.raise_for_status()
         data = r.json()
     except Exception as e:

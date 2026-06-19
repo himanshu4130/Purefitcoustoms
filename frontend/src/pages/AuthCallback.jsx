@@ -19,7 +19,7 @@ export default function AuthCallback() {
       navigate("/login", { replace: true });
       return;
     }
-    const sessionId = m[1];
+    const sessionId = decodeURIComponent(m[1]);
 
     // Strip the hash immediately so any re-render won't re-trigger AuthCallback
     window.history.replaceState(null, "", window.location.pathname);
