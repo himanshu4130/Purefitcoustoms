@@ -1,0 +1,114 @@
+{
+  "theme": "dark",
+  "archetype": "5 (Luxury)",
+  "color_palette": {
+    "primary": "#0B3D2E",
+    "secondary": "#D4AF37",
+    "accent": "#F8F5EE",
+    "background": "#111111",
+    "surface": "#1A1A1A",
+    "surface_glass": "rgba(11, 61, 46, 0.4)",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#F8F5EE",
+    "border_color": "rgba(212, 175, 55, 0.3)"
+  },
+  "typography": {
+    "headline_font": "Cormorant Garamond",
+    "body_font": "DM Sans",
+    "hierarchy": {
+      "h1": "text-5xl sm:text-6xl+ tracking-tighter font-serif text-white",
+      "h2": "text-3xl sm:text-4xl tracking-tight font-serif text-white",
+      "h3": "text-2xl sm:text-3xl font-serif text-white",
+      "h4": "text-lg sm:text-xl font-sans font-medium text-[#F8F5EE]",
+      "body": "text-base leading-relaxed font-sans text-[#F8F5EE]/80",
+      "overline": "uppercase text-xs tracking-[0.2em] font-sans text-[#D4AF37]"
+    }
+  },
+  "visual_style": {
+    "overall": "Extremely premium, elegant, minimalistic, sophisticated luxury.",
+    "glassmorphism": "backdrop-blur-xl bg-[#0B3D2E]/30 border border-[#D4AF37]/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
+    "animations": "framer-motion for smooth reveal, slow parallax, staggered list entrances.",
+    "spacing": "Generous spacing. Use p-8, p-12, py-24. Containers with borders need p-8 minimum."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#D4AF37] text-[#111111] hover:bg-[#F8F5EE] hover:text-[#0B3D2E] transition-colors duration-300 font-medium px-8 py-4 uppercase tracking-wide text-sm rounded-none",
+      "secondary": "bg-transparent border border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#111111] transition-colors duration-300 font-medium px-8 py-4 uppercase tracking-wide text-sm rounded-none"
+    },
+    "cards": {
+      "service_card": "backdrop-blur-xl bg-[#111111]/60 border border-[#D4AF37]/20 p-8 hover:-translate-y-2 transition-transform duration-500 rounded-lg group",
+      "testimonial_card": "bg-[#0B3D2E]/40 border-l-2 border-[#D4AF37] p-8 rounded-r-lg"
+    }
+  },
+  "sections_layout": {
+    "hero": "Full screen (h-screen). Background image with bg-[#111111]/70 overlay. Centered text. Headline: 'Every Bottle Tells A Story'. Gold accent line below headline. Primary & Secondary CTA buttons.",
+    "what_we_do": "Grid layout (grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8). Service cards with glassmorphism.",
+    "showcase": "Bento grid layout for featured customizations. Mix of large and small images.",
+    "why_purefit": "Grid layout for features. Minimal icons (lucide-react or phosphor), gold color. 2-column or 4-column layout.",
+    "process_timeline": "Vertical line connecting 4 steps. Step numbers in gold circles. Scroll-triggered animation.",
+    "industries": "Marquee or horizontal scroll of industry categories.",
+    "social_proof": "3 large counters (5000+, 100+, 100%). Big serif numbers in Gold.",
+    "gallery": "Masonry or balanced grid. Category filter buttons at top.",
+    "testimonials": "Carousel (Swiper or Framer motion based).",
+    "quote_form": "Shadcn form. File upload field. Dark theme form inputs.",
+    "contact": "2-column layout. Contact details + form on one side, Map on the other."
+  },
+  "image_urls": {
+    "hero_background": [
+      {
+        "url": "https://images.pexels.com/photos/4717555/pexels-photo-4717555.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "hero",
+        "description": "Elegant table arrangement for an upscale wedding with gold accents and floral centerpiece."
+      }
+    ],
+    "showcase": [
+      {
+        "url": "https://images.pexels.com/photos/6716002/pexels-photo-6716002.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "showcase",
+        "description": "A stylish glass bottle with cork and two glasses on a reflective table by a window with soft lighting."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1758520145140-c2dd8e78fc02",
+        "category": "showcase",
+        "description": "People working late in a dimly lit office."
+      },
+      {
+        "url": "https://images.pexels.com/photos/30726881/pexels-photo-30726881.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "showcase",
+        "description": "A sophisticated dining setup with decorative flower centerpiece and elegant tableware."
+      }
+    ],
+    "gallery": [
+      {
+        "url": "https://images.pexels.com/photos/29040997/pexels-photo-29040997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "gallery",
+        "description": "Beautifully arranged tables with elegant decor at an indoor wedding reception."
+      },
+      {
+        "url": "https://images.pexels.com/photos/6210568/pexels-photo-6210568.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "gallery",
+        "description": "Minimalistic kitchen interior featuring a glass bottle and glasses on a counter, ideal for contemporary design themes."
+      },
+      {
+        "url": "https://images.pexels.com/photos/32560854/pexels-photo-32560854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "gallery",
+        "description": "Stylish table setting with glass and bottled water under ambient lighting, perfect for fine dining environments."
+      },
+      {
+        "url": "https://images.pexels.com/photos/34321369/pexels-photo-34321369.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "gallery",
+        "description": "Elegant catering presentation with gourmet appetizers on a tray at a social event."
+      }
+    ]
+  },
+  "testing_instructions": {
+    "data_testid_rules": "All interactive and key informational elements MUST include a data-testid attribute.",
+    "examples": [
+      "data-testid='hero-cta-quote'",
+      "data-testid='service-card-wedding'",
+      "data-testid='testimonial-carousel-next'",
+      "data-testid='quote-form-submit'"
+    ]
+  },
+  "instructions_to_main_agent": "Ensure the deep forest green (#0B3D2E) acts as the primary dominant color with #111111 used for backgrounds. Gold (#D4AF37) should be used for accents, buttons, icons, and text highlights. Implement smooth Framer Motion scroll animations to emphasize the luxury feel. Avoid completely sharp corners unless explicitly intended; use subtle rounded corners (e.g., rounded-lg). Embed data-testid on all interactive elements. Follow pure Javascript (.js/.jsx), do not use Typescript."
+}
